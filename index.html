@@ -111,34 +111,71 @@
             50% { transform: translate(20px,-15px) scale(1.03); }
         }
 
-        /* Ocean wave layers */
-        .ocean-waves {
-            position: absolute; bottom: -2px; left: 0; right: 0; z-index: 2;
-            height: 120px; overflow: hidden; pointer-events: none;
+        /* Ocean wave layers - persistent background */
+        .ocean-bg {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: -1;
+            height: 220px; overflow: hidden; pointer-events: none;
         }
         .wave {
             position: absolute; bottom: 0; left: -5%; width: 110%; height: 100%;
-            background-repeat: repeat-x; background-size: 1200px 120px;
+            background-repeat: repeat-x; background-size: 1400px 220px;
             background-position: 0 bottom;
         }
         .wave-1 {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,60 C150,100 350,0 600,60 C850,120 1050,20 1200,60 L1200,120 L0,120Z' fill='%23FAF9F6' fill-opacity='0.5'/%3E%3C/svg%3E");
-            animation: waveFlow 12s linear infinite;
-            opacity: 0.6;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 220'%3E%3Cdefs%3E%3ClinearGradient id='w1' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23B8C4E3' stop-opacity='0.25'/%3E%3Cstop offset='1' stop-color='%23B8C4E3' stop-opacity='0.08'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0,100 C175,160 350,40 700,100 C1050,160 1225,40 1400,100 L1400,220 L0,220Z' fill='url(%23w1)'/%3E%3C/svg%3E");
+            animation: waveFlow 14s linear infinite;
         }
         .wave-2 {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,80 C200,40 400,100 600,50 C800,0 1000,80 1200,40 L1200,120 L0,120Z' fill='%23E8ECF5' fill-opacity='0.4'/%3E%3C/svg%3E");
-            animation: waveFlow 16s linear infinite reverse;
-            opacity: 0.5;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 220'%3E%3Cdefs%3E%3ClinearGradient id='w2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23C5CFC0' stop-opacity='0.2'/%3E%3Cstop offset='1' stop-color='%23E8D8D4' stop-opacity='0.15'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0,130 C233,70 467,170 700,110 C933,50 1167,150 1400,90 L1400,220 L0,220Z' fill='url(%23w2)'/%3E%3C/svg%3E");
+            animation: waveFlow 18s linear infinite reverse;
         }
         .wave-3 {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,40 C300,90 500,10 700,70 C900,130 1100,30 1200,70 L1200,120 L0,120Z' fill='%23FAF9F6' fill-opacity='0.8'/%3E%3C/svg%3E");
-            animation: waveFlow 20s linear infinite;
-            opacity: 0.7;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 220'%3E%3Cdefs%3E%3ClinearGradient id='w3' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%237E8FBD' stop-opacity='0.12'/%3E%3Cstop offset='1' stop-color='%23B8C4E3' stop-opacity='0.06'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0,80 C350,140 700,20 1050,100 C1225,140 1350,60 1400,80 L1400,220 L0,220Z' fill='url(%23w3)'/%3E%3C/svg%3E");
+            animation: waveFlow 22s linear infinite;
+        }
+        .wave-4 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 220'%3E%3Cpath d='M0,150 C200,110 400,180 700,120 C1000,60 1200,160 1400,130 L1400,220 L0,220Z' fill='%23E8ECF5' fill-opacity='0.12'/%3E%3C/svg%3E");
+            animation: waveFlow 10s linear infinite;
         }
         @keyframes waveFlow {
             0% { background-position-x: 0; }
-            100% { background-position-x: 1200px; }
+            100% { background-position-x: 1400px; }
+        }
+
+        /* Color accent orbs - floating throughout page */
+        .color-orbs {
+            position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); opacity: 0;
+            animation: orbPulse ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 500px; height: 500px; top: 20%; left: -5%;
+            background: radial-gradient(circle, var(--peri) 0%, transparent 70%);
+            animation-duration: 18s; animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 400px; height: 400px; top: 50%; right: -8%;
+            background: radial-gradient(circle, var(--sage) 0%, transparent 70%);
+            animation-duration: 22s; animation-delay: 3s;
+        }
+        .orb-3 {
+            width: 350px; height: 350px; bottom: 20%; left: 30%;
+            background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
+            animation-duration: 20s; animation-delay: 6s;
+        }
+        .orb-4 {
+            width: 300px; height: 300px; top: 10%; right: 25%;
+            background: radial-gradient(circle, #D4C5E8 0%, transparent 70%);
+            animation-duration: 25s; animation-delay: 9s;
+        }
+        @keyframes orbPulse {
+            0%, 100% { opacity: 0.08; transform: scale(1) translate(0, 0); }
+            25% { opacity: 0.18; transform: scale(1.1) translate(20px, -15px); }
+            50% { opacity: 0.12; transform: scale(0.95) translate(-10px, 10px); }
+            75% { opacity: 0.2; transform: scale(1.05) translate(15px, 5px); }
         }
 
         /* Ambient floating particles */
@@ -266,7 +303,7 @@
         }
 
         /* ---- FOR YOU ---- */
-        .for-you { background: linear-gradient(180deg, var(--sand) 0%, var(--cream) 100%); }
+        .for-you { background: linear-gradient(180deg, var(--sand) 0%, rgba(250,249,246,0.85) 100%); }
         .for-you::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, var(--warm-gray), transparent);
@@ -277,10 +314,14 @@
             padding: 1.25rem 1.5rem;
             background: rgba(255,255,255,0.65); backdrop-filter: blur(10px);
             border-radius: 10px; border-left: 3px solid var(--peri);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
+        .for-you-item:nth-child(2) { border-left-color: var(--sage); }
+        .for-you-item:nth-child(3) { border-left-color: var(--blush); }
+        .for-you-item:nth-child(4) { border-left-color: #D4C5E8; }
+        .for-you-item:nth-child(5) { border-left-color: var(--peri-deep); }
         .for-you-item:hover {
-            transform: translateX(6px); background: rgba(255,255,255,0.9);
+            transform: translateX(6px); background: rgba(255,255,255,0.92);
             box-shadow: 0 8px 25px rgba(0,0,0,0.04);
         }
         .for-you-item p { color: var(--charcoal-light); font-size: 1.02rem; line-height: 1.6; }
@@ -309,6 +350,9 @@
             background: linear-gradient(90deg, var(--peri), var(--sage));
             border-radius: 12px 12px 0 0; opacity: 0; transition: opacity 0.4s;
         }
+        .card:nth-child(2)::before { background: linear-gradient(90deg, var(--sage), var(--blush)); }
+        .card:nth-child(3)::before { background: linear-gradient(90deg, var(--blush), #D4C5E8); }
+        .card:nth-child(4)::before { background: linear-gradient(90deg, #D4C5E8, var(--peri)); }
         .card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.06); }
         .card:hover::before { opacity: 1; }
         .card h3 {
@@ -365,6 +409,8 @@
             border-color: var(--peri); background: var(--peri-soft);
             transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184,196,227,0.2);
         }
+        .tag:nth-child(3n+2):hover { border-color: var(--sage); background: var(--sage-soft); box-shadow: 0 6px 20px rgba(197,207,192,0.25); }
+        .tag:nth-child(3n+3):hover { border-color: var(--blush); background: var(--blush-soft); box-shadow: 0 6px 20px rgba(232,216,212,0.25); }
         .focus-note {
             margin-top: 2.5rem; padding: 1.75rem;
             background: linear-gradient(135deg, var(--peri-soft), rgba(232,236,245,0.4));
@@ -439,6 +485,9 @@
             border-left: 2px solid var(--peri); padding-left: 1.5rem;
             transition: transform 0.4s ease;
         }
+        .phil-item:nth-child(2) { border-left-color: var(--sage); }
+        .phil-item:nth-child(3) { border-left-color: var(--blush); }
+        .phil-item:nth-child(4) { border-left-color: #D4C5E8; }
         .phil-item:hover { transform: translateX(6px); }
         .phil-item h3 {
             font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
@@ -653,6 +702,22 @@
 </head>
 <body>
 
+    <!-- Persistent color orbs -->
+    <div class="color-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Persistent ocean waves -->
+    <div class="ocean-bg">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+        <div class="wave wave-4"></div>
+    </div>
+
     <!-- Nav -->
     <nav>
         <div class="nav-inner">
@@ -682,12 +747,6 @@
         <div class="hero-overlay"></div>
         <!-- Ambient particles -->
         <div class="particles" id="particles"></div>
-        <!-- Ocean waves at bottom -->
-        <div class="ocean-waves">
-            <div class="wave wave-1"></div>
-            <div class="wave wave-2"></div>
-            <div class="wave wave-3"></div>
-        </div>
         <div class="hero-inner">
             <div class="hero-content">
                 <h1 id="heroTitle">Profound change. Clear goals. Deep work.</h1>
@@ -707,10 +766,7 @@
     </section>
 
     <!-- For You -->
-    <section class="for-you" id="for-you" style="position:relative;">
-        <div class="section-wave">
-            <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,0 L0,0Z" fill="var(--cream)" opacity="0.6"/><path d="M0,20 C240,50 480,10 720,35 C960,60 1200,15 1440,25 L1440,0 L0,0Z" fill="var(--cream)" opacity="0.3"/></svg>
-        </div>
+    <section class="for-you" id="for-you">
         <div class="inner">
             <p class="subtitle">This may be for you if</p>
             <h2 class="title">You're looking for something different</h2>
@@ -1069,11 +1125,6 @@
                     const heroImg = document.querySelector('.hero-image-wrap');
                     if (heroImg && y < window.innerHeight) {
                         heroImg.style.transform = 'translateY(' + (y * 0.08) + 'px)';
-                    }
-                    // Parallax ocean waves
-                    const waves = document.querySelector('.ocean-waves');
-                    if (waves && y < window.innerHeight) {
-                        waves.style.transform = 'translateY(' + (y * -0.15) + 'px)';
                     }
                     ticking = false;
                 });
