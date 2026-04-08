@@ -40,6 +40,27 @@
             overflow-x: hidden;
         }
 
+        /* Fixed ocean + orb canvas behind everything */
+        .bg-canvas {
+            position: fixed; inset: 0; z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--peri-soft) 60%, var(--sand) 100%);
+        }
+
+        /* All scrollable content sits above */
+        .page-content {
+            position: relative; z-index: 1;
+        }
+
+        /* Make sections slightly transparent so ocean/orbs show through */
+        .page-content section {
+            background-color: rgba(250,249,246,0.82);
+            backdrop-filter: blur(2px);
+        }
+        .page-content .hero { background-color: transparent; backdrop-filter: none; }
+        .page-content .philosophy { background-color: transparent; backdrop-filter: none; }
+        .page-content footer { background-color: rgba(44,40,37,0.95); backdrop-filter: blur(4px); }
+
         /* ---- NAV ---- */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -57,6 +78,10 @@
         .nav-logo {
             font-family: var(--serif); font-size: 1.2rem; font-weight: 500;
             color: var(--charcoal); text-decoration: none; letter-spacing: 0.01em;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .nav-logo img {
+            height: 38px; width: auto; border-radius: 4px;
         }
         .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a {
@@ -111,14 +136,14 @@
             50% { transform: translate(20px,-15px) scale(1.03); }
         }
 
-        /* Ocean wave layers - persistent background */
+        /* Ocean wave layers - inside bg-canvas */
         .ocean-bg {
-            position: fixed; bottom: 0; left: 0; right: 0; z-index: -1;
-            height: 220px; overflow: hidden; pointer-events: none;
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 280px; overflow: hidden;
         }
         .wave {
             position: absolute; bottom: 0; left: -5%; width: 110%; height: 100%;
-            background-repeat: repeat-x; background-size: 1400px 220px;
+            background-repeat: repeat-x; background-size: 1400px 280px;
             background-position: 0 bottom;
         }
         .wave-1 {
@@ -142,9 +167,9 @@
             100% { background-position-x: 1400px; }
         }
 
-        /* Color accent orbs - floating throughout page */
+        /* Color accent orbs - inside bg-canvas */
         .color-orbs {
-            position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
+            position: absolute; inset: 0; overflow: hidden;
         }
         .orb {
             position: absolute; border-radius: 50%;
@@ -303,7 +328,7 @@
         }
 
         /* ---- FOR YOU ---- */
-        .for-you { background: linear-gradient(180deg, var(--sand) 0%, rgba(250,249,246,0.85) 100%); }
+        .for-you { }
         .for-you::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, var(--warm-gray), transparent);
@@ -327,7 +352,7 @@
         .for-you-item p { color: var(--charcoal-light); font-size: 1.02rem; line-height: 1.6; }
 
         /* ---- APPROACH ---- */
-        .approach { background: var(--cream); overflow: hidden; }
+        .approach { overflow: hidden; }
         .approach::before {
             content: ''; position: absolute; top: 15%; right: -8%;
             width: 35%; height: 55%;
@@ -362,10 +387,7 @@
         .card p { color: var(--charcoal-light); font-size: 0.94rem; line-height: 1.75; }
 
         /* ---- CSRT PROGRAM ---- */
-        .program {
-            background: linear-gradient(180deg, var(--cream), var(--blush-soft), var(--cream));
-            overflow: hidden;
-        }
+        .program { overflow: hidden; }
         .program-card {
             background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(250,249,246,0.96));
             border-radius: 16px; padding: 3rem; margin-top: 2.5rem;
@@ -397,7 +419,7 @@
         .program-footer strong { color: var(--charcoal); font-weight: 500; }
 
         /* ---- FOCUS AREAS ---- */
-        .focus { background: linear-gradient(180deg, var(--cream), var(--sage-soft) 50%, var(--cream)); }
+        .focus { }
         .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; position: relative; z-index: 1; }
         .tag {
             padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.8);
@@ -421,10 +443,7 @@
         .focus-note strong { font-weight: 500; color: var(--charcoal); }
 
         /* ---- ABOUT ---- */
-        .about {
-            background: linear-gradient(180deg, var(--cream), var(--sand));
-            overflow: hidden;
-        }
+        .about { overflow: hidden; }
         .about::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, var(--warm-gray), transparent);
@@ -462,8 +481,9 @@
 
         /* ---- PHILOSOPHY ---- */
         .philosophy {
-            background: linear-gradient(145deg, var(--charcoal) 0%, #3a3633 100%);
+            background: linear-gradient(145deg, rgba(44,40,37,0.92) 0%, rgba(58,54,51,0.92) 100%) !important;
             color: var(--cream); overflow: hidden;
+            backdrop-filter: blur(8px) !important;
         }
         .philosophy::before {
             content: ''; position: absolute; inset: 0;
@@ -497,8 +517,8 @@
 
         /* ---- PERIWINK ---- */
         .periwink {
-            background: linear-gradient(135deg, var(--peri-soft) 0%, var(--cream) 50%, var(--sage-soft) 100%);
             padding: 5rem 2rem; overflow: hidden;
+            background-color: rgba(232,236,245,0.6) !important;
         }
         .periwink::before {
             content: ''; position: absolute; top: 50%; left: 50%;
@@ -543,7 +563,7 @@
         .periwink-link:hover svg { transform: translateX(3px); }
 
         /* ---- FAQ ---- */
-        .faq { background: linear-gradient(180deg, var(--cream), var(--sand)); }
+        .faq { }
         .faq-list { margin-top: 2rem; max-width: 760px; }
         .faq-item {
             border-bottom: 1px solid var(--warm-gray);
@@ -569,7 +589,7 @@
         .faq-a p { color: var(--charcoal-light); font-size: 0.94rem; line-height: 1.75; }
 
         /* ---- CONTACT ---- */
-        .contact { background: linear-gradient(180deg, var(--sand), var(--cream)); }
+        .contact { }
         .contact::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, var(--warm-gray), transparent);
@@ -702,26 +722,29 @@
 </head>
 <body>
 
-    <!-- Persistent color orbs -->
-    <div class="color-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
+    <!-- Fixed background canvas: ocean waves + color orbs -->
+    <div class="bg-canvas">
+        <div class="color-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="orb orb-4"></div>
+        </div>
+        <div class="ocean-bg">
+            <div class="wave wave-1"></div>
+            <div class="wave wave-2"></div>
+            <div class="wave wave-3"></div>
+            <div class="wave wave-4"></div>
+        </div>
     </div>
 
-    <!-- Persistent ocean waves -->
-    <div class="ocean-bg">
-        <div class="wave wave-1"></div>
-        <div class="wave wave-2"></div>
-        <div class="wave wave-3"></div>
-        <div class="wave wave-4"></div>
-    </div>
+    <!-- Scrollable page content -->
+    <div class="page-content">
 
     <!-- Nav -->
     <nav>
         <div class="nav-inner">
-            <a href="#" class="nav-logo">Dr. Adrian Tubero</a>
+            <a href="#" class="nav-logo"><img src="empowered-mind-logo.png" alt="Empowered Mind">Dr. Adrian Tubero</a>
             <div class="nav-contact">
                 <a href="tel:9175687909">917-568-7909</a>
                 <a href="mailto:drtubero03@gmail.com">drtubero03@gmail.com</a>
@@ -1014,7 +1037,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-inner">
-            <div class="footer-logo">Dr. Adrian Tubero</div>
+            <div class="footer-logo" style="display:flex;align-items:center;gap:0.6rem;"><img src="empowered-mind-logo.png" alt="Empowered Mind" style="height:32px;border-radius:4px;">Dr. Adrian Tubero</div>
             <ul class="footer-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#program">CSRT Program</a></li>
@@ -1024,6 +1047,8 @@
             <p class="footer-tagline">Not therapy forever -- just enough to change your life.</p>
         </div>
     </footer>
+
+    </div><!-- /page-content -->
 
     <script>
         // Nav scroll effect
